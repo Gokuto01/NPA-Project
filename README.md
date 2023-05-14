@@ -15,4 +15,13 @@ To run this project, using npm:
 -backend -> npm start
 ```
 
+## Database
+To set SQL Table this project, using MySQL Workbench:
+
+```
+create schema name npa
+import template.sql
+connect backend database at backend/Config/database.js
+```
+
 dont forgot branch first!!!
