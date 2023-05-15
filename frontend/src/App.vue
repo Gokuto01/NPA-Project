@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style>
+body {
+  background: #fdc5725f;
+  font-family: "Itim", cursive;
+}
 /* Add custom styles for the navigation bar */
 nav {
   background: #333;
