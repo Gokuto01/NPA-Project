@@ -24,15 +24,6 @@
             Don't have an account? <router-link to="/signup">Sign up</router-link>
           </p>
           </div>
-          <!-- <form @submit.prevent="login"> -->
-          <!-- <label for="email">Email:</label>
-          <input type="email" id="email" v-model="email" required />
-          <br />
-          <label for="password">Password:</label>
-          <input type="password" id="password" v-model="password" required />
-          <br />
-          <button class="button is-rounded is-medium" @click="login()">Login</button> -->
-          <!-- </form> -->
         </div>
       </div>
     </section>
