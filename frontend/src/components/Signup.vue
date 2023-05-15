@@ -1,36 +1,72 @@
 <template>
   <div>
-    <h1>Sign up</h1>
-    <form @submit.prevent="signup" @reset="resetForm" >
-      <label for="name">Name:</label>
-      <input type="text" id="name" v-model="name" required />
-      <br />
-      <label for="surname">Surname:</label>
-      <input type="text" id="surname" v-model="surname" required />
-      <br />
-      <label for="email">Email:</label>
-      <input type="email" id="email" v-model="email" required />
-      <br />
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="password" required />
-      <br />
-      <label for="major">Major:</label>
-      <select id="major" v-model="major" required>
-        <option v-for="major in majors" :value="major.major_id" :key="major.major_id">
-          {{ major.name }}
-        </option>
-      </select>
-      <br />
-      <label for="studentID">Student ID:</label>
-      <input type="text" id="studentID" v-model="studentID" required />
-      <br />
-      <button type="submit">Sign up</button>
-      <button type="reset">Reset</button>
-      <button @click="back">Back</button>
-    </form>
+    <section class="section hero is-fullheight">
+      <div class="columns is-centered">
+        <div class="card p-6" style="width: 500px">
+          <h2 class="title is-2 has-text-centered mb-5">Sign up</h2>
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="กรอกชื่อ" v-model="name">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Surname</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="กรอกนามสกุล" v-model="surname">
+            </div>
+          </div>
+          <div class="field">
+            <div class="columns">
+              <div class="column is-8">
+                <label class="label">Student ID</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="กรอกรหัสนักศึกษา" v-model="studentID">
+                </div>
+              </div>
+              <div class="column is-4">
+                <label class="label">Major</label>
+                  <div class="control">
+                    <div class="select">
+                      <select v-model="major">
+                        <option disabled>-- สาขา --</option>
+                        <option v-for="major in majors" :value="major.major_id" :key="major.major_id">
+                        {{ major.name }}
+                      </option>
+                      </select>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <input class="input" type="email" placeholder="กรอกอีเมล" v-model="email">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+              <input class="input" type="password" placeholder="กรอกรหัสผ่าน" v-model="password">
+            </div>
+          </div>
+          <div class="field has-text-centered my-5">
+            <button class="button is-success is-rounded is-medium mr-3" @click="signup()">Sign up</button>
+            <button class="button is-warning is-rounded is-medium" @click="resetForm()">Reset</button>
+          </div>
+          <div class="field has-text-centered">
+            <p>
+              Want to go back to the login page? <router-link to="/login">Back</router-link>
+          </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </div>
 </template>
-  
+
 <script>
 import axios from "axios";
 import service from "../utils/backend";
@@ -43,7 +79,7 @@ export default {
       surname: '',
       email: '',
       password: '',
-      major: '',
+      major: '-- สาขา --',
       studentID: '',
       majors: [],
     };
@@ -90,11 +126,8 @@ export default {
       this.surname = '';
       this.email = '';
       this.password = '';
-      this.major = '';
+      this.major = '-- สาขา --';
       this.studentID = '';
-    },
-    back() {
-      router.push('/login');
     },
   },
 };

@@ -1,7 +1,7 @@
 const dbConfig = {
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'DMJbvc45',
     database: 'npa',
 };
 
