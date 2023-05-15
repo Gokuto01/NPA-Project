@@ -6,9 +6,10 @@
         <li><router-link to="/signup">My Sheet</router-link></li>
         <li><router-link to="/profile">Profile</router-link></li>
         <li><router-link to="/profile">Report</router-link></li>
-        <!-- Add more navigation links as needed -->
+
       </ul>
     </nav>
+    <!-- <NavBar /> -->
     <router-view :user="user"></router-view>
   </div>
 </template>
@@ -18,6 +19,9 @@ import axios from 'axios';
 import service from './utils/backend';
 
 export default {
+  components: {
+    NavBar,
+  },
   data() {
     return {
       user: {
