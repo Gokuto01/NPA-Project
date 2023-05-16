@@ -1,6 +1,14 @@
 <template>
   <div>
-    <Navbar :isAuthen="isAuthenticated" :role="user.role" />
+    <nav v-if="isAuthenticated">
+      <ul>
+        <li><router-link to="/">Home</router-link></li>
+        <li v-if="user.role == 'student'"><router-link to="/mySheet">My Sheet</router-link></li>
+        <li v-if="user.role == 'student'"><router-link to="/profile">Profile</router-link></li>
+        <li v-if="user.role == 'admin'"><router-link to="/profile/admin">Profile</router-link></li>
+        <!-- Add more navigation links as needed -->
+      </ul>
+    </nav>
     <router-view :user="user"></router-view>
   </div>
 </template>
@@ -8,12 +16,8 @@
 <script>
 import axios from 'axios';
 import service from './utils/backend';
-import Navbar from "./components/Navbar.vue";
 
-export default ({
-  components: {
-    Navbar,
-  },
+export default {
   data() {
     return {
       user: {
@@ -55,7 +59,7 @@ export default ({
       }
     }
   },
-});
+};
 </script>
 
 <style>

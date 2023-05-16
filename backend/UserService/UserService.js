@@ -2,21 +2,15 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 const dbConfig = require('../Config/database')
 const pool = mysql.createPool(dbConfig);
-
-//allow origin
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    next();
-  });
 
 // GetProfile API
 app.get('/profile/student', async (req, res) => {
@@ -61,7 +55,46 @@ app.put('/profile/student', async (req, res) => {
     }
 });
 
-// UpdateProfile API
+// GetProfile admin API
+app.get('/profile/admin', async (req, res) => {
+    const { user_id } = req.query;
+
+    try {
+        const [rows, fields] = await pool.query('SELECT * FROM user WHERE user.user_id = ?', [user_id]);
+        return res.send(rows[0])
+    } catch (error) {
+        console.error('Error decoding token:', error);
+        return res.status(500).json({ error: 'Token verification failed' });
+    }
+});
+
+// UpdateProfile admin API
+app.put('/profile/admin', async (req, res) => {
+    const { email, name, surname, user_id } = req.body;
+    let connection;
+
+    try {
+        connection = await pool.getConnection();
+
+        await connection.beginTransaction();
+        const [rows1, field1] = await connection.query('UPDATE user SET email = ?, name = ?, surname = ? WHERE user_id = ?',
+            [email, name, surname, user_id]);
+        await connection.commit();
+        return res.json({ message: 'User Profile Update successfully' });
+    } catch (error) {
+        if (connection) {
+            await connection.rollback();
+        }
+        console.error('Error executing database query:', error);
+        return res.status(500).json({ error: 'Database error' });
+    } finally {
+        if (connection) {
+            connection.release();
+        }
+    }
+});
+
+// UpdatePassword API
 app.put('/password', async (req, res) => {
     const { password, user_id } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);

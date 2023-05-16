@@ -2,10 +2,12 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 const dbConfig = require('../Config/database')
 const pool = mysql.createPool(dbConfig);
@@ -21,13 +23,6 @@ function generateToken(length) {
 
   return token;
 }
-
-//allow origin
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
 
 // Signup API
 app.post('/signup', async (req, res) => {
