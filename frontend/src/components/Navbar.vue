@@ -21,12 +21,12 @@
         </div>
 
         <div class="navbar-end">
-        <div class="navbar-item">
-          <span class="button is-warning is-outlined">
-            <i class="fa fa-sign-out fas fa-2x" aria-hidden="true"></i>
-          </span>
+          <div class="navbar-item">
+            <span class="button is-warning is-outlined" @click="logout()">
+              <i class="fa fa-sign-out fas fa-2x" aria-hidden="true"></i>
+            </span>
+          </div>
         </div>
-      </div>
 
       </div>
     </nav>
@@ -34,6 +34,10 @@
 </template>
 
 <script>
+import axios from "axios";
+import service from "../utils/backend";
+import router from '@/router';
+
 export default {
   // Add any component options or logic you need
   props: ['isAuthen', 'role'],
@@ -41,6 +45,24 @@ export default {
     return {
       name: "Navbar",
     };
+  },
+  methods: {
+    logout() {
+      const model = {
+        token: localStorage.getItem("npaToken"),
+      };
+      axios
+        .post(`${service.authen}/logout`, model)
+        .then((response) => {
+          // Handle the response
+          localStorage.removeItem("npaToken");
+          router.push('/login');
+        })
+        .catch((error) => {
+          // Handle the error
+          console.error(error);
+        });
+    },
   },
 }
 </script>
@@ -50,6 +72,7 @@ export default {
   background: #80400B;
   font-size: 20px;
 }
+
 /* .navbar-start {
   margin: 0 auto;
 } */
@@ -59,10 +82,11 @@ export default {
   align-items: center;
   padding: 0 30px;
 }
+
 .item:hover {
   background: #FC6A03;
 }
+
 #nav-item {
   color: #ffffff;
-}
-</style>
+}</style>
