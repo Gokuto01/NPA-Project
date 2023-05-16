@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar" v-if="isAuthen && role == 'student'">
+    <nav class="navbar" v-if="isAuthen">
       <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
           <a class="item">
@@ -8,15 +8,15 @@
           </a>
 
           <a class="item">
-            <router-link to="/signup" id="nav-item">My Sheet</router-link>
+            <router-link to="/mySheet" id="nav-item">My Sheet</router-link>
           </a>
 
-          <a class="item">
+          <a class="item" v-if="role=='student'">
             <router-link to="/profile" id="nav-item">Profile</router-link>
           </a>
 
-          <a class="item">
-            <router-link to="/profile" id="nav-item">Report</router-link>
+          <a class="item" v-if="role=='admin'">
+            <router-link to="/profile/admin" id="nav-item">Profile</router-link>
           </a>
         </div>
 
