@@ -58,7 +58,7 @@ CREATE TABLE `comment` (
   KEY `'fk_comment_shhet_sheet_id'_idx` (`sheet_id`),
   CONSTRAINT `'fk_comment_shhet_sheet_id'` FOREIGN KEY (`sheet_id`) REFERENCES `sheet` (`sheet_id`),
   CONSTRAINT `'fk_comment_user_user_id'` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,18 +104,17 @@ DROP TABLE IF EXISTS `sheet`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sheet` (
   `sheet_id` int NOT NULL AUTO_INCREMENT,
-  `file` longblob NOT NULL,
-  `status` enum('private','public') NOT NULL DEFAULT 'private',
-  `like` int NOT NULL DEFAULT '0',
+  `file` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int NOT NULL,
-  `caregory_id` int NOT NULL,
+  `category_id` int NOT NULL,
   PRIMARY KEY (`sheet_id`),
   KEY `'fk_user_id'_idx` (`user_id`),
-  KEY `'fk_sheet_category_category_id'_idx` (`caregory_id`),
-  CONSTRAINT `'fk_sheet_category_category_id'` FOREIGN KEY (`caregory_id`) REFERENCES `category` (`category_id`),
+  KEY `'fk_sheet_category_category_id'_idx` (`category_id`),
+  CONSTRAINT `'fk_sheet_category_category_id'` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
   CONSTRAINT `'fk_sheet_user_user_id'` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,6 +123,7 @@ CREATE TABLE `sheet` (
 
 LOCK TABLES `sheet` WRITE;
 /*!40000 ALTER TABLE `sheet` DISABLE KEYS */;
+INSERT INTO `sheet` VALUES (9,'uploads\\1684218229625.pdf','Math','2023-05-10 06:23:49',1,3),(10,'uploads\\1684223555643.pdf','Java Final 2023','2023-05-16 07:52:35',1,1);
 /*!40000 ALTER TABLE `sheet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +173,7 @@ CREATE TABLE `token` (
   UNIQUE KEY `token_UNIQUE` (`token`),
   KEY `'fk_user_id'_idx` (`user_id`),
   CONSTRAINT `'fk_token_user_user_id'` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,6 +182,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
+INSERT INTO `token` VALUES (34,'k4dQmKI5PZEXqufQbaO3eMxcaRvQNCCu',1);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-14 18:28:55
+-- Dump completed on 2023-05-16 15:04:27
