@@ -5,15 +5,6 @@
             <p><strong>Name:</strong><input v-model="profile.name" /></p>
             <p><strong>Surname:</strong><input v-model="profile.surname" /></p>
             <p><strong>Email:</strong><input v-model="profile.email" /></p>
-            <p><strong>Student Id:</strong><input v-model="profile.student_no" /></p>
-            <label for="major">Major:</label>
-            <select id="major" v-model="this.profile.major" required>
-                <option v-for="major in majors" :value="major.major_id" :key="major.major_id">
-                    {{ major.name }}
-                </option>
-            </select>
-            <label><strong>Information:</strong></label>
-            <textarea v-model="profile.information" rows="5"></textarea>
         </div>
         <div>
             <button @click="editProfile">Edit Profile</button>
@@ -53,11 +44,7 @@ export default {
                 name: "",
                 surname: "",
                 email: "",
-                student_no: "",
-                major: "",
-                information: "",
             },
-            majors: [],
             password: "",
             confirmPassword: "",
             showModal: false,
@@ -68,7 +55,6 @@ export default {
         // Fetch the user profile data from an API or local storage
         // and assign it to the profile object
         this.getProfile();
-        this.getMajor();
     },
     methods: {
         updatePassword() {
@@ -107,9 +93,6 @@ export default {
                 name: this.profile.name,
                 surname: this.profile.surname,
                 email: this.profile.email,
-                student_no: this.profile.student_no,
-                major: this.profile.major,
-                information: this.profile.information,
                 user_id: this.user.user_id
             };
 
@@ -137,27 +120,12 @@ export default {
                         this.profile.name = response.data.name;
                         this.profile.surname = response.data.surname;
                         this.profile.email = response.data.email;
-                        this.profile.student_no = response.data.student_no;
-                        this.profile.information = response.data.information;
-                        this.profile.major = response.data.major_id
                     })
                     .catch((error) => {
                         // Handle the error
                         console.error(error);
                     });
             }
-        },
-        getMajor() {
-            axios
-                .get(`${service.authen}/major`)
-                .then((response) => {
-                    // Handle the response
-                    this.majors = response.data;
-                })
-                .catch((error) => {
-                    // Handle the error
-                    console.error(error);
-                });
         },
         logout() {
             const model = {

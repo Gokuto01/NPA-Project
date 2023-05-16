@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../components/Login.vue';
 import Signup from '../components/Signup.vue';
-import Profile from '../components/Profile.vue'
-import Home from '../components/Home.vue'
+import Profile from '../components/Profile.vue';
+import Home from '../components/Home.vue';
+import MySheet from '../components/MySheet.vue';
+import Detail from '../components/Detail.vue';
+import AdminProfile from '../components/AdminProfile.vue';
 
 const routes = [
   {
@@ -27,6 +30,24 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/mySheet',
+    name: 'mySheet',
+    component: MySheet,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/detail/:sheet_id',
+    name: 'Detail',
+    component: Detail,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/profile/admin',
+    name: 'adminProfile',
+    component: AdminProfile,
     meta: { requiresAuth: true },
   },
 ];

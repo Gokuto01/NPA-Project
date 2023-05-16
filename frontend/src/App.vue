@@ -1,11 +1,11 @@
 <template>
   <div>
-    <nav v-if="isAuthenticated && user.role == 'student'">
+    <nav v-if="isAuthenticated">
       <ul>
         <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/signup">My Sheet</router-link></li>
-        <li><router-link to="/profile">Profile</router-link></li>
-        <li><router-link to="/profile">Report</router-link></li>
+        <li v-if="user.role == 'student'"><router-link to="/mySheet">My Sheet</router-link></li>
+        <li v-if="user.role == 'student'"><router-link to="/profile">Profile</router-link></li>
+        <li v-if="user.role == 'admin'"><router-link to="/profile/admin">Profile</router-link></li>
         <!-- Add more navigation links as needed -->
       </ul>
     </nav>
