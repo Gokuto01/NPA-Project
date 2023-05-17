@@ -262,63 +262,6 @@ export default {
         });
 
     },
-    editProfile() {
-      const model = {
-        name: this.profile.name,
-        surname: this.profile.surname,
-        email: this.profile.email,
-        student_no: this.profile.student_no,
-        major: this.profile.major,
-        information: this.profile.information,
-        user_id: this.user.user_id
-      };
-
-      axios
-        .put(`${service.user}/profile/${this.user.role}`, model)
-        .then((response) => {
-          // Handle the response
-          this.getProfile();
-        })
-        .catch((error) => {
-          // Handle the error
-          console.error(error);
-        });
-    },
-    getProfile() {
-      if (this.user.user_id != 0) {
-        axios
-          .get(`${service.user}/profile/${this.user.role}`, {
-            params: {
-              user_id: this.user.user_id,
-            },
-          })
-          .then((response) => {
-            // Handle the response
-            this.profile.name = response.data.name;
-            this.profile.surname = response.data.surname;
-            this.profile.email = response.data.email;
-            this.profile.student_no = response.data.student_no;
-            this.profile.information = response.data.information;
-            this.profile.major = response.data.major_id
-          })
-          .catch((error) => {
-            // Handle the error
-            console.error(error);
-          });
-      }
-    },
-    getMajor() {
-      axios
-        .get(`${service.authen}/major`)
-        .then((response) => {
-          // Handle the response
-          this.majors = response.data;
-        })
-        .catch((error) => {
-          // Handle the error
-          console.error(error);
-        });
-    },
     cancelModal() {
       this.showModal = false;
       this.password = ""
@@ -327,62 +270,6 @@ export default {
     },
     cancelEdit() {
       this.showEditProfile = false;
-    },
-    editProfile() {
-      const model = {
-        name: this.profile.name,
-        surname: this.profile.surname,
-        email: this.profile.email,
-        student_no: this.profile.student_no,
-        major: this.profile.major,
-        information: this.profile.information,
-        user_id: this.user.user_id
-      };
-
-      axios
-        .put(`${service.user}/profile/${this.user.role}`, model)
-        .then((response) => {
-          // Handle the response
-          this.showEditProfile = false;
-          this.getProfile();
-        })
-        .catch((error) => {
-          // Handle the error
-          console.error(error);
-        });
-    },
-    getProfile() {
-      axios
-        .get(`${service.user}/profile/${this.user.role}`, {
-          params: {
-            user_id: this.user.user_id,
-          },
-        })
-        .then((response) => {
-          // Handle the response
-          this.profile.name = response.data.name;
-          this.profile.surname = response.data.surname;
-          this.profile.email = response.data.email;
-          this.profile.student_no = response.data.student_no;
-          this.profile.information = response.data.information;
-          this.profile.major = response.data.major_id
-        })
-        .catch((error) => {
-          // Handle the error
-          console.error(error);
-        });
-    },
-    getMajor() {
-      axios
-        .get(`${service.authen}/major`)
-        .then((response) => {
-          // Handle the response
-          this.majors = response.data;
-        })
-        .catch((error) => {
-          // Handle the error
-          console.error(error);
-        });
     },
   },
 };

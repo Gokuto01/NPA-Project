@@ -7,7 +7,7 @@
             <router-link to="/" id="nav-item">Home</router-link>
           </a>
 
-          <a class="item">
+          <a class="item" v-if="role=='student'">
             <router-link to="/mySheet" id="nav-item">My Sheet</router-link>
           </a>
 
