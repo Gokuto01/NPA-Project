@@ -71,6 +71,9 @@ export default {
 #navbar {
   background: #80400B;
   font-size: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 /* .navbar-start {

@@ -1,28 +1,99 @@
 <template>
-  <div>
-    <div>
-      <input type="text" v-model="searchText" placeholder="Search">
-      <label for="category">Category:</label>
-      <select id="category" v-model="category">
-        <option value="">All</option>
-        <option v-for="category in categories" :value="category.name" :key="category.category_id">
-          {{ category.name }}
-        </option>
-      </select>
-      <label for="sort">Sort By:</label>
-      <select id="sort" v-model="sortOption">
-        <option value="name">Name</option>
-        <option value="created_date">Created Date</option>
-      </select>
+  <div class="container is-max-desktop">
+    <div class="columns my-5">
+      <!-- ##### Category ##### -->
+      <div class="column">
+        <div class="field has-addons">
+          <div class="control">
+            <p class="button is-static is-rounded">Category : </p>
+          </div>
+          <div class="control">
+            <div class="select is-rounded ">
+              <select v-model="category">
+                <option value="">All</option>
+                <option v-for="category in categories" :value="category.name" :key="category.category_id">
+                  {{ category.name }}
+              </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ##### Sort By ##### -->
+      <div class="column">
+        <div class="field has-addons">
+          <div class="control">
+            <p class="button is-static is-rounded">Sort By : </p>
+          </div>
+          <div class="control">
+            <div class="select is-rounded ">
+              <select v-model="sortOption">
+                <option value="name">Name</option>
+                <option value="created_date">Created Date</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ##### search ##### -->
+      <div class="column">
+        <div class="field has-addons">
+          <p class="control search_input">
+            <input
+              v-model="searchText"
+              class="input is-rounded"
+              type="text"
+              placeholder="Search"
+              style="width: 255px;"
+            />
+          </p>
+          <p class="control" @click="getProducts()">
+            <button class="button is-dark is-rounded">
+              <i class="fa fa-search"></i>
+            </button>
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div v-for="sheet in sortedSheets" :key="sheet.sheet_id" class="card">
-      <router-link :to="`/Detail/${sheet.sheet_id}`">
-        <div>{{ sheet.name }}</div>
-        <img src="../assets/sheet.jpg" alt="Sheet Image">
-        <div>{{ sheet.created_date }}</div>
-        <div>{{ sheet.category }}</div>
-      </router-link>
+    <!-- ###### card PDF ##### -->
+    <div class="hero is-fullheight">
+      <div id="col-card" class="columns">
+        <div class="column is-4" v-for="sheet in sortedSheets" :key="sheet.sheet_id">
+          <div class="card pb-2">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="../assets/sheet.jpg" alt="Sheet Image">
+              </figure>
+            </div>
+            <div class="card-content has-text-centered">
+              <p class="is-size-5 title">
+                {{ sheet.name }}
+              </p>
+              <p class="is-size-6 subtitle mb-2">
+                {{ sheet.category }}
+              </p>
+              <p class="is-size-7 mb-5" style="color: #bab2b5">
+                Date : {{ sheet.created_date }}
+              </p>
+              <router-link :to="`/Detail/${sheet.sheet_id}`">
+                <button
+                  class="button is-rounded mb-2"
+                  style="
+                    color: #f7f9fb;
+                    background-color: #DD571C;
+                    width: 100%;
+                    "
+                >
+                  Read
+                </button>
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -110,4 +181,12 @@ export default {
   padding: 10px;
   margin-bottom: 10px;
 }
+#btn-read {
+  margin: auto;
+}
+#col-card {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 </style>
