@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend/SheetService
+      dockerfile: Dockerfile
+    image: jeeraphat/sheet-service:1.0
