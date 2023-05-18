@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend/CommentService
+      dockerfile: Dockerfile
+    image: jeeraphat/comment-service:1.0
