@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend/UserService
+      dockerfile: Dockerfile
+    image: jeeraphat/user-service:1.0
