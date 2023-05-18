@@ -1,7 +1,7 @@
 const dbConfig = {
-    host: 'localhost',
+    host: 'npa.cq7bbmbiyelo.us-east-1.rds.amazonaws.com',
     user: 'root',
-    password: 'DMJbvc45',
+    password: 'Golf1112',
     database: 'npa',
 };
 
