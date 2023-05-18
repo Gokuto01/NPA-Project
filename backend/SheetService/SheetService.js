@@ -11,7 +11,13 @@ app.use(cors());
 const dbConfig = require('../Config/database')
 const pool = mysql.createPool(dbConfig);
 
-// comment API
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+// sheet API
 app.get('/sheet', async (req, res) => {
   try {
     const [rows, fields] = await pool.query('SELECT sheet_id, sheet.name as name, created_date, user_id, category.name as category FROM sheet join category on sheet.category_id = category.category_id');
