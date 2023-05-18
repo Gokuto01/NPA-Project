@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend/AuthenService
+      dockerfile: Dockerfile
+    image: jeeraphat/authen-service:1.0
