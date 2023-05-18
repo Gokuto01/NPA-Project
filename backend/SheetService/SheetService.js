@@ -70,6 +70,6 @@ app.get('/pdf/:sheet_id', async (req, res) => {
 });
 
 const port = 3004;
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Sheet service is running on port ${port}`);
 });
